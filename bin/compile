@@ -24,6 +24,6 @@ echo $country_checksum
 echo $country
 
 
-if ! [ $city == city_checksum ]; then
+if ! [ $city == $city_checksum ]; then
   echo "-----> ERROR: city db checksums does not match"
 fi
