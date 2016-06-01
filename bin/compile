@@ -16,8 +16,8 @@ city_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2
 country_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.md5)
 echo "-----> Download complete. Verifying checksum..."
 
-city=($(cat /var/lib/geolite/city.mmdb.gz | md5))
-country=($(cat /var/lib/geolite/country.mmdb.gz | md5))
+city=$(cat /var/lib/geolite/city.mmdb.gz | md5)
+country=$(cat /var/lib/geolite/country.mmdb.gz | md5)
 echo $city_checksum
 echo $city
 echo $country_checksum
