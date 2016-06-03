@@ -4,14 +4,6 @@ BUILD_DIR=$1
 DB_PATH="${1}/geolite/city.mmdb.gz"
 DB_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 
-function indent() {
-  c='s/^/       /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
-
 function db_download() {
   url="$1"
   location="$2"
@@ -21,13 +13,13 @@ function db_download() {
 }
 
 if [ -f $DB_DEST_DIR ]; then
-  echo "Database already exists. Skipping..." | indent
+  echo "-----> Database already exists. Skipping..."
   exit 1
 fi
 
-echo "-----> Downloading city database..." |> indent
+echo "-----> Downloading city database..."
 db_download "${DB_URL}" "${DB_PATH}"
-echo "-----> Download complete..." |> indent
+echo "-----> Download complete..."
 
 # city_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5)
 # country_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.md5)
