@@ -1,16 +1,33 @@
 #!/bin/sh
 
-indent() {
-  sed -u 's/^/       /'
+BUILD_DIR=$1
+DB_PATH="${1}/geolite/city.mmdb.gz"
+DB_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
+
+function indent() {
+  c='s/^/       /'
+  case $(uname) in
+    Darwin) sed -l "$c";;
+    *)      sed -u "$c";;
+  esac
 }
 
-path=geolite
-echo "-----> Creating geolite folder in /app/geolite"
-mkdir -p /app/geolite
+function db_download() {
+  url="$1"
+  location="$2"
 
-echo "-----> Downloading databases..."
-wget -O /app/geolite/city.mmdb.gz http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
-wget -O /app/geolite/country.mmdb.gz http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
+  mkdir -p $location
+  curl $url --location -s -o
+}
+
+if [ -f $DB_DEST_DIR ]; then
+  echo "Database already exists. Skipping..." | indent
+  exit 1
+fi
+
+echo "-----> Downloading city database..." |> indent
+db_download "${DB_URL}" "${DB_PATH}"
+echo "-----> Download complete..." |> indent
 
 # city_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5)
 # country_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.md5)
