@@ -4,21 +4,14 @@ BUILD_DIR=$1
 DB_PATH="${1}/geolite/city.mmdb.gz"
 DB_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 
-function db_download() {
-  url="$1"
-  location="$2"
-
-  mkdir -p $location
-  curl $url --location -s -o
-}
-
 if [ -f $DB_DEST_DIR ]; then
   echo "-----> Database already exists. Skipping..."
   exit 1
 fi
 
 echo "-----> Downloading city database..."
-db_download "${DB_URL}" "${DB_PATH}"
+mkdir -p $DB_PATH
+curl -s -o "${DB_PATH}" "${DB_URL}"
 echo "-----> Download complete..."
 
 # city_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5)
