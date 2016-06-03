@@ -5,19 +5,19 @@ indent() {
 }
 
 path=geolite
-echo "-----> Creating geolite folder in ${path}"
-mkdir -p $path
+echo "-----> Creating geolite folder in ./geolite"
+mkdir -p ./geolite
 
 echo "-----> Downloading databases..."
-wget -O "$path/city.mmdb.gz" http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
-wget -O "$path/country.mmdb.gz" http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
+wget -O "./geolite/city.mmdb.gz" http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
+wget -O "./geolite/country.mmdb.gz" http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.mmdb.gz
 
 city_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.md5)
 country_checksum=$(curl http://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.md5)
 echo "-----> Download complete. Verifying checksum..."
 
-city=$(cat "$path/city.mmdb.gz" | md5)
-country=$(cat "$path/country.mmdb.gz" | md5)
+city=$(cat "./geolite/city.mmdb.gz" | md5)
+country=$(cat "./geolite/country.mmdb.gz" | md5)
 echo $city_checksum
 echo $city
 echo $country_checksum
