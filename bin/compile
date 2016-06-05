@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BUILD_DIR=$1
-DB_DIR="${1}/geolite"
+DB_DIR="${1}/.mix/geolite"
 DB_PATH="${DB_DIR}/city.mmdb.gz"
 DB_URL="http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"
 
